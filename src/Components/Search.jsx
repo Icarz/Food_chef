@@ -9,7 +9,7 @@ const Search = ({ setFoodData }) => {
     async function fetchFood() {
       const res = await fetch(`${URL}?query=${query}&apiKey=${API_KEY}`);
       const data = await res.json();
-      console.log(data.results);
+      // console.log(data.results);
       setFoodData(data.results);
     }
     fetchFood();
