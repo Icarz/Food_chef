@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import styles from "./fooddetails.module.css";
+import Ingredients from "./Ingredients";
 
 const FoodDetails = ({ foodId }) => {
   const [food, setFood] = useState({});
@@ -27,32 +29,40 @@ const FoodDetails = ({ foodId }) => {
 
   return (
     <div>
-      <div>
-        <h1>{food.title}</h1>
-        <img src={food.image} alt="" />
-        <div>
+      <div className={styles.recipeCard}>
+        <h1 className={styles.recipeName}>{food.title}</h1>
+        <img className={styles.recipeImage} src={food.image} alt="" />
+        <div className={styles.recipeDetails}>
           <span>
-            <strong>🔔{food.readyInMinutes} Minutes </strong>
+            <strong>🔔{food.readyInMinutes} Minutes to be done </strong>
           </span>
           <span>
-            <strong> Serve: 👨‍🍳 {food.servings}</strong>
+            <strong> 👨‍🍳 Serve: {food.servings} People</strong>
           </span>
           <span>
-            {food.vegetarian ? " 🍃 Vegetarian" : "🥩  Non - Vegetarian"}
+            <strong>
+              {food.vegetarian ? " 🍃 Vegetarian" : "🥩  Non - Vegetarian"}
+            </strong>
           </span>
           <span>{food.vegan ? "Vegan Meal" : ""}</span>
         </div>
         <div>
-          <span>${food.pricePerServing / 10} Per Serving</span>
+          <span>
+            <strong>${food.pricePerServing} Per Serving</strong>
+          </span>
         </div>
       </div>
-      <div>
-        <h2>Instructions</h2>
-        {food.analyzedInstructions &&
-          food.analyzedInstructions.length > 0 &&
-          food.analyzedInstructions[0].steps.map((step, index) => (
-            <li key={index}>{step.step}</li>
-          ))}
+      <h2 className={styles.ingredients}>Ingredients</h2>
+      <Ingredients food={food} />
+      <h2 className={styles.instructions}>Instructions</h2>
+      <div className={styles.recipeInstructions}>
+        <ol>
+          {food.analyzedInstructions &&
+            food.analyzedInstructions.length > 0 &&
+            food.analyzedInstructions[0].steps.map((step, index) => (
+              <li key={index}>{step.step}</li>
+            ))}
+        </ol>
       </div>
     </div>
   );
